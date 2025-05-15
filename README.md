@@ -4,7 +4,7 @@ This C code implements a one bead-per-amino acid coarse-grained
 model for protein folding and protein fold switching, with a structure-based potential.
 Conformational sampling is carried out using Langevin dynamics.
 
-This repository developed in the [Wallin Lab](https://www.physics.mun.ca/~jswallin/index.html) under the supervision of **Dr. Stefan Wallin**, this model allows researchers to study **protein folding, fold switching, and particularly macromolecular crowding effects** on proteins.
+This repository developed in the [Wallin Lab](https://www.physics.mun.ca/~jswallin/index.html) under the supervision of **Dr. Stefan Wallin**. The code can be used to simulate **protein folding and fold switching** for systems for which structural information is available for the proteins. Macromolecular crowding effects can be included.  
 
 ## How to cite
 
@@ -23,7 +23,7 @@ S Wallin, H.S. Chan
 Journal of Physics: Condensed Matter 18, S307–S328 (2006)
 [Link to paper](https://iopscience.iop.org/article/10.1088/0953-8984/21/32/329801/pdf)
 
-This foundational paper outlines the theoretical framework behind structure-based coarse-grained protein models and insights into entropic barriers and folding pathways using native-centric approaches.
+This paper outlines the theoretical framework behind structure-based coarse-grained protein models and gives details on the Langevin dynamics approach implemented in the code. 
 
 
 
@@ -31,31 +31,31 @@ This foundational paper outlines the theoretical framework behind structure-base
 
 🔧 defs.h:
 
-Defines constants, flags, file paths (input and output), simulation and molecular dyanamics parameters. This includes force-field selections (FF_BOND, FF_CONT, ...), temperature parameters, sampling parameters, and filenames for input/output. 
+Parameter definitions for the model and molecular dynamics procedure, including force-field selection (FF_BOND, FF_CONT, ...), temperature, numerical integration parameters, input/output filenames, etc. 
 
 🔧 global.h
 
-Declares all global variables and arrays used across different modules (positions, velocities, forces, energy terms, etc.). This allows consistent access to simulation state across files such as geometry.c, energy.c, etc.
+Declararations of global variables and arrays (positions, velocities, forces, energy terms, etc.) accessible across most other files, including geometry.c, energy.c, etc.
 
 🔧 geometry.c
 
-Handles the spatial representation of chains and crowders. Computes distances, transforms coordinates into the periodic box, and acting on degrees of freedom (bonds, angles, torsions) in Cartesian coordinates. It ensures molecules remain within the simulation boundaries, also.
+Handles the spatial representation of chains and crowders. Includes functions for distance calculations, periodic boundary conditions, and transformations between angular degrees of freedom (bonds, angles, torsions) and Cartesian coordinates. 
 
 🔧 energy.c
 
-Implements all energy and force calculations for molecular interactions, including bonds, angles, torsions, native contacts, and crowding effects. For example, it provides functions like bond(), cont(), crowd_bead(), and crowd_crowd() to compute interaction potentials and apply forces.
+Functions for energy and force calculations, including bonded (bond, angle, torsion) and non-bonded (excluded volume, contacts, crowder) interactions. For example, it provides functions like bond(), cont(), crowd_bead(), and crowd_crowd() to compute interaction potentials and forces.
 
 🔧 obs.c
 
-Computes observables like number of native contacts (no_cont), RMSD, radius of gyration, and histograms for bond lengths, angles, and contact maps. These are used to analyze simulation trajectories and structural properties.
+Computes observables like number of native contacts (no_cont), RMSD, radius of gyration, and collects statistics for histograms for bond lengths, angles, and contact maps. These are used to analyze simulation trajectories and structural properties.
 
 🔧 misc.c
 
-Provides utility functions for simulation and control settings. It includes initialization (printinfo()), output of averages, checkpoint saving/loading (write_checkpnt()), and trajectory exports (dumppdb()).
+Provides misceleneous functions for simulation and control settings, including initialization (printinfo()), output of averages, checkpointing (write_checkpnt()), and trajectory exports (dumppdb()).
 
 🔧 utils.c
 
-Handles file-based input like reading native structure files, contact maps, and writing PDB files. Also includes custom random number generators (ran3n) and PDB format export for visualization.
+Includes various file-based utilities such as reading native structure files, contact maps, and writing PDB files. Also includes custom random number generators (ran3n) and PDB format export for visualization.
 
 🔧 sampling.c
 
