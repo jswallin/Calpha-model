@@ -1,0 +1,6 @@
+(undo-tree-save-format-version . 1)
+"be87a715bc1e005b31297b650a01a62acce41482"
+[nil nil nil nil (27251 6583 718423 667000) 0 nil]
+([nil nil (("swallin@mun.ca" . 861) (undo-tree-id0 . -14) (undo-tree-id1 . -14) (undo-tree-id2 . -14) (undo-tree-id3 . -14) (t 27251 6307 870118 832000)) nil (27251 6583 718422 255000) 0 nil])
+([nil current ((861 . 875)) nil (27251 6583 718401 467000) 0 nil])
+nil
